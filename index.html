@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fomology - Coming Soon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: url('https://images.unsplash.com/photo-1605902711622-cfb43c4437d5?auto=format&fit=crop&w=1770&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.85);
+      background-blend-mode: overlay;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .side-panel-left,
+    .side-panel-right {
+      width: 20%;
+      padding: 1.5rem;
+      background: rgba(0, 0, 0, 0.75);
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      gap: 1.2rem;
+      font-size: 0.95rem;
+    }
+
+    .side-panel-left {
+      border-right: 2px solid #8a2be2;
+    }
+
+    .side-panel-right {
+      border-left: 2px solid #8a2be2;
+      color: #ccc;
+    }
+
+    .side-panel-left h3,
+    .side-panel-right h3 {
+      color: #c084fc;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid #555;
+      padding-bottom: 0.3rem;
+    }
+
+    .container {
+      width: 60%;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #c084fc;
+      text-shadow: 0 0 10px #c084fc;
+    }
+
+    p {
+      font-size: 1.25rem;
+      max-width: 600px;
+      margin-top: 1rem;
+      color: #ccc;
+    }
+
+    .button-group {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .button {
+      background-color: #8a2be2;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 10px #8a2be2;
+      transition: background 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #a855f7;
+      box-shadow: 0 0 15px #a855f7;
+    }
+
+    .airdrop-info {
+      margin-top: 3rem;
+      padding: 1.5rem;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+      font-size: 1rem;
+      color: #c5c5c5;
+      box-shadow: 0 0 20px #c084fc33;
+      max-width: 600px;
+    }
+
+    .token-price {
+      line-height: 1.8;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column;
+      }
+
+      .side-panel-left,
+      .side-panel-right,
+      .container {
+        width: 100%;
+        border: none;
+      }
+
+      .side-panel-left,
+      .side-panel-right {
+        border-top: 2px solid #8a2be2;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LEFT PANEL -->
+  <div class="side-panel-left">
+    <h3>Why Us?</h3>
+    <p>Fomology simplifies crypto onboarding by letting users skip the grind. No spending, no confusion — we do it all.</p>
+
+    <h3>Who Are We?</h3>
+    <p>A small team of airdrop hunters, crypto explorers & devs building a transparent way to help you grow passively in Web3.</p>
+
+    <h3>What We Can Achieve</h3>
+    <p>No speculative promises. We aim to get users consistent airdrops by targeting legit projects & simplifying task execution.</p>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+    <h1>FOMOLOGY</h1>
+    <p>The future of crypto onboarding is almost here. Let us do the heavy lifting — sign up, complete tasks, and we hunt airdrops for you.</p>
+
+    <div class="button-group">
+      <a href="https://linktr.ee/fomology" target="_blank" class="button">Join Us</a>
+      <a href="https://x.com/TshetanY?t=q0IikouVQ2gQGNV4VJy7vQ&s=09" target="_blank" class="button">Send Feedback</a>
+    </div>
+
+    <div class="airdrop-info">
+      <strong>💸 Did You Know?</strong><br /><br />
+      The <strong>biggest airdrop in crypto history</strong> was by <strong>dYdX</strong>, distributing over <strong>$1 billion</strong> in DYDX tokens to early users.<br/>
+      Projects like Arbitrum and Optimism followed with massive rewards for early adopters.<br/><br/>
+      At Fomology, we help you become that early user — without the hassle.
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="side-panel-right">
+    <h3>Top Tokens</h3>
+    <div id="priceList" class="token-price">Loading...</div>
+  </div>
+
+  <script>
+    async function fetchPrices() {
+      try {
+        const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,arbitrum,pepe&vs_currencies=usd');
+        const data = await res.json();
+        const priceList = document.getElementById("priceList");
+        priceList.innerHTML = `
+          <strong>BTC:</strong> $${data.bitcoin.usd.toLocaleString()}<br/>
+          <strong>ETH:</strong> $${data.ethereum.usd.toLocaleString()}<br/>
+          <strong>SOL:</strong> $${data.solana.usd.toLocaleString()}<br/>
+          <strong>ARB:</strong> $${data.arbitrum.usd.toLocaleString()}<br/>
+          <strong>PEPE:</strong> $${data.pepe.usd.toFixed(6)}
+        `;
+      } catch (err) {
+        document.getElementById("priceList").innerText = "Unable to fetch prices.";
+      }
+    }
+
+    fetchPrices();
+    setInterval(fetchPrices, 60000); // refresh every 60 sec
+  </script>
+</body>
+</html>
